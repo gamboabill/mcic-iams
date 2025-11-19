@@ -3,6 +3,7 @@
 namespace App\Livewire\Department;
 
 use App\Models\Department;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class EditModal extends Component
@@ -34,10 +35,13 @@ class EditModal extends Component
     public function updateDepartment()
     {
         $this->Validate([
-            'name' => 'required|string|max:255|unique:departments,name',
-            'code' => 'required|string|max:255|unique:departments,code',
+            'name' => 'required|string|max:255|' . Rule::unique('departments', 'name')->ignore($this->editDepartmentId),
+            'code' => 'required|string|max:255|' . Rule::unique('departments', 'code')->ignore($this->editDepartmentId),
             'description' => 'nullable|string|max:1000',
         ]);
+
+        $department = Department::findOrFail($this->editDepartmentId);
+
 
         Department::find($this->editDepartmentId)->update([
             'name' => $this->name,
@@ -45,11 +49,19 @@ class EditModal extends Component
             'description' => $this->description,
         ]);
 
-        session()->flash('success', 'Department updated successfully');
 
-        $this->dispatch('department-update-success');
-
-        $this->openEditModal = false;
+        if (
+            $this->name === $department->name &&
+            $this->code === $department->code &&
+            $this->description === $department->description
+        ) {
+            // No changes
+            $this->dispatch('edit-no-changes');
+            $this->openEditModal = false;
+        } else {
+            $this->dispatch('edit-success');
+            $this->openEditModal = false;
+        }
     }
 
     public function render()

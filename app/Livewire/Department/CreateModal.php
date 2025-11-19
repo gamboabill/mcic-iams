@@ -32,9 +32,9 @@ class CreateModal extends Component
 
         session()->flash('success', 'Department created successfully!');
 
-        $this->dispatch('department-created-success'); // to refresh the database
+        $this->dispatch('created-success');
 
-        $this->dispatch('departmentCreated');
+        $this->reset();
 
         $this->openCreateModal  = false;
     }

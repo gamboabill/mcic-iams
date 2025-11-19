@@ -20,7 +20,7 @@ class PermanentDeleteModal extends Component
      *      $this->dispatch('open-permanent-delete-modal');
      *
      * After successful restoration, this component notifies the parent by dispatching:
-     *      $this->dispatch('delete-permanent-success');
+     *      $this->dispatch('permanent-delete-success');
      *
      * The parent then handles flashing success messages.
      * ===========================================================================
@@ -60,7 +60,7 @@ class PermanentDeleteModal extends Component
         $department->forceDelete();
 
         // Notify parent component (Archived.php)
-        $this->dispatch('delete-permanent-success');
+        $this->dispatch('permanent-delete-success');
 
         $this->openPermanentDeleteModal = false;
     }

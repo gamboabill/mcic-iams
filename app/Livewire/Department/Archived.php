@@ -18,15 +18,15 @@ class Archived extends Component
      * These listeners capture success events dispatched
      * from the child modal components:
      *
-     * - PermanentDeleteModal.php → department-permanent-success
-     * - RestoreModal → restore-success
+     * - RestoreModal.php → restore-success
+     * - PermanentDeleteModal.php → permanent-delete-success
      * 
      * Purpose:
      *      Display flash messages in the Archived view.
      */
     protected $listeners = [
         'restore-success' => 'restoreFlashMessage',
-        'delete-permanent-success' => 'deletePermanentFlashMessage',
+        'permanent-delete-success' => 'permanentDeleteSuccess',
     ];
 
     /**
@@ -40,7 +40,7 @@ class Archived extends Component
         session()->flash('success', 'Department successfully restored!');
     }
 
-    public function deletePermanentFlashMessage()
+    public function permanentDeleteSuccess()
     {
         session()->flash('success', 'Department successfully removed permanently!');
     }

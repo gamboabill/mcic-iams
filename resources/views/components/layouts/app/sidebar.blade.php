@@ -13,15 +13,36 @@
             <x-app-logo />
         </a>
         <flux:navlist variant="outline">
-            <flux:navlist.group :heading="__('Platform')" class="grid">
-                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
-                    wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+            <flux:navlist.group :heading="__('Dashboard')" class="grid">
 
-                {{-- <flux:navlist.item icon="users" :href="route('employees')"
-                    :current="request()->routeIs('employees')" wire:navigate>{{ __('Employees') }}
-                </flux:navlist.item> --}}
+                <flux:navlist.item icon="cog" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
+                    wire:navigate>{{ __('Dashboard') }}
+                </flux:navlist.item>
 
             </flux:navlist.group>
+
+            <flux:navlist.group :heading="__('Departments')" class="grid">
+
+                <flux:navlist.item icon="home" :href="route('department.index')"
+                    :current="request()->routeIs('department.index')" wire:navigate>{{
+                    __('Departments') }}
+                </flux:navlist.item>
+
+                <flux:navlist.item icon="home" :href="route('department.archived')"
+                    :current="request()->routeIs('department.archived')" wire:navigate>{{
+                    __('Archived Departments') }}
+                </flux:navlist.item>
+
+            </flux:navlist.group>
+
+            <flux:navlist.group :heading="__('Asset Holders')" class="grid">
+
+                <flux:navlist.item icon="user" :href="route('endUsers')" :current="request()->routeIs('endUsers')"
+                    wire:navigate>{{ __('End Users') }}
+                </flux:navlist.item>
+
+            </flux:navlist.group>
+
         </flux:navlist>
 
         <flux:spacer />

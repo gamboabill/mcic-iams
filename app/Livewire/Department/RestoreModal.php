@@ -3,39 +3,19 @@
 namespace App\Livewire\Department;
 
 use App\Models\Department;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class RestoreModal extends Component
 {
-    /**
-     * ===========================================================================
-     *  PARENT COMPONENT RELATION
-     * ===========================================================================
-     *
-     * This component is controlled by the parent:
-     *      App\Livewire\Department\Archived
-     *
-     * The parent opens this modal using:
-     *      $this->dispatch('open-restore-modal');
-     *
-     * After successful restoration, this component notifies the parent by dispatching:
-     *      $this->dispatch('restore-success');
-     *
-     * The parent then handles flashing success messages.
-     * ===========================================================================
-     */
-    protected $listeners = [
-        'open-restore-modal' => 'openRestoreModal'
-    ];
 
     public $name;
     public $departmentRestoreId = null;
     public $openRestoreModal = false;
 
-    /**
-     * OPEN MODAL
-     * Triggered by parent Archived component.
-     */
+
+    // Opens the restore modal (triggered by Archived parent component)
+    #[On('open-restore-modal')]
     public function openRestoreModal($id)
     {
         $department = Department::onlyTrashed()->findOrFail($id);

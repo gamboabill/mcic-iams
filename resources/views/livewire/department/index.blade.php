@@ -7,11 +7,6 @@
     </x-alert>
     @endif
 
-    @if (session('warning'))
-    <x-alert type="warning" message="{{ session('warning') }}" timeout="5000">
-    </x-alert>
-    @endif
-
     @if (session('error'))
     <x-alert type="error" message="{{ session('error') }}" timeout="5000">
     </x-alert>
@@ -27,7 +22,7 @@
         mt="3" />
 
     <input type="text" wire:model.live="search" placeholder="Search departments..."
-        class="border rounded px-2 py-1 float-right mt-4" autocomplete="off">
+        class="border rounded px-2 py-1 float-right mt-4 mb-5" autocomplete="off">
 
     <div wire:poll.10s="refreshDepartment">
         <table class="min-w-full border border-gray-300 mt-5">

@@ -20,5 +20,15 @@ $pageTitle = ucfirst(str_replace('.', ' / ', $currentRoute));
 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
+<style>
+    .fakefiller-allow input {
+        fakefiller: allow;
+    }
+
+    input:not(.fakefiller-allow input) {
+        fakefiller: skip;
+    }
+</style>
+
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @fluxAppearance

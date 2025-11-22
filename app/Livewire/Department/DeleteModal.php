@@ -3,19 +3,19 @@
 namespace App\Livewire\Department;
 
 use App\Models\Department;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class DeleteModal extends Component
 {
-    protected $listeners = [
-        'open-delete-modal' => 'openDeleteModal',
-    ];
 
     public $name;
 
     public $confirmingDeleteId = null;
     public $openDeleteModal = false;
 
+    // Opens the delete confirmation modal (triggered by Index parent component)
+    #[On('open-delete-modal')]
     public function openDeleteModal($id)
     {
         $department = Department::findOrFail($id);
@@ -27,15 +27,13 @@ class DeleteModal extends Component
         $this->openDeleteModal = true;
     }
 
-    /**
-     * This is the actual delete query
-     */
     public function deleteDepartment()
     {
         $department = Department::findOrFail($this->confirmingDeleteId);
 
         $department->delete();
 
+        // Notify parent component (Index.php)
         $this->dispatch('delete-success');
 
         $this->openDeleteModal = false;

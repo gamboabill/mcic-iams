@@ -15,77 +15,47 @@ class Index extends Component
 
     public $search = '';
 
-    public bool $shouldPoll = false;
-
-    /**
-     * ----------------------------------------------------
-     *  EVENTS FROM CHILD COMPONENTS (CreateModal / EditModal / DeleteModal)
-     * ----------------------------------------------------
-     * These listeners capture success events dispatched
-     * from the child modal components:
-     *
-     * - PermanentDeleteModal.php → department-permanent-success
-     * - CreateModal.php → create-success
-     * - EditModal.php → edit-success
-     * - DeleteModal.php → delete-success
-     * 
-     * Purpose:
-     *      Display flash messages in the Archived view.
-     */
-    protected $listeners = [
-        'created-success' => 'createFlashMessage',
-        'edit-success' => 'editFlashMessage',
-        'edit-no-changes' => 'editNoChangesFlashMessage',
-        'delete-success' => 'deleteFlashMessage',
-    ];
-
-    /**
-     * ----------------------------
-     * FLASH MESSAGE HANDLERS
-     * Triggered by child components.
-     * ----------------------------
-     */
+    // Shows flash message (triggered from child component, CreateModal)
+    #[On('create-success')]
     public function createFlashMessage()
     {
         session()->flash('success', 'Department successfully created');
     }
 
+    // Shows flash message (triggered from child component, EditModal)
+    #[On('edit-success')]
     public function editFlashMessage()
     {
         session()->flash('success', 'Department successfully updated');
     }
 
+    // Shows flash message (triggered from child component, EditModal)
+    #[On('edit-no-changes')]
     public function editNoChangesFlashMessage()
     {
         session()->flash('error', 'No changes were made to the department.');
     }
 
+    // Shows flash message (triggered from child component, DeleteModal)
+    #[On('delete-success')]
     public function deleteFlashMessage()
     {
         session()->flash('success', 'Department successfully deleted');
     }
 
-    /**
-     * ====================================================
-     *  OPEN CHILD MODALS
-     *  Called from buttons inside the Index table.
-     * ====================================================
-     *
-     * These dispatch events to the child components:
-     *      - CreateModal.php
-     *      - EditModal.php
-     *      - DeleteModal.php
-     */
+    // Opens the restore modal (triggered from CreateModal child)
     public function openCreateModal()
     {
         $this->dispatch('open-create-modal');
     }
 
+    // Opens the restore modal (triggered from EditModal child)
     public function openEditModal($id)
     {
         $this->dispatch('open-edit-modal', id: $id);
     }
 
+    // Opens the restore modal (triggered from DeleteModal child)
     public function openDeleteModal($id)
     {
         $this->dispatch('open-delete-modal', id: $id);

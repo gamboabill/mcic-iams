@@ -3,41 +3,17 @@
 namespace App\Livewire\Department;
 
 use App\Models\Department;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class PermanentDeleteModal extends Component
 {
-
-    /**
-     * ===========================================================================
-     *  PARENT COMPONENT RELATION
-     * ===========================================================================
-     *
-     * This component is controlled by the parent:
-     *      App\Livewire\Department\Archived
-     *
-     * The parent opens this modal using:
-     *      $this->dispatch('open-permanent-delete-modal');
-     *
-     * After successful restoration, this component notifies the parent by dispatching:
-     *      $this->dispatch('permanent-delete-success');
-     *
-     * The parent then handles flashing success messages.
-     * ===========================================================================
-     */
-
-    protected $listeners = [
-        'open-permanent-delete-modal' => 'openPermanentDeleteModal',
-    ];
-
     public $name;
     public $departmentPermanentDeleteId;
     public $openPermanentDeleteModal = false;
 
-    /**
-     * OPEN MODAL
-     * Triggered by parent Archived component.
-     */
+    // Opens the permanent delete modal (triggered by Archived parent component)
+    #[On('open-permanent-delete-modal')]
     public function openPermanentDeleteModal($id)
     {
         $department = Department::onlyTrashed()->findOrFail($id);

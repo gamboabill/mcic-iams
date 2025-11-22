@@ -18,7 +18,10 @@
 
     <hr>
 
-    <table class="min-w-full border border-gray-300 mt-4">
+    <input type="text" wire:model.live="search" placeholder="Search departments..."
+        class="border rounded px-2 py-1 float-right mt-4 mb-5" autocomplete="off">
+
+    <table class="min-w-full border border-gray-300 mt-5">
         <thead class="bg-gray-100">
             <tr>
                 <th class="border px-4 py-2">No</th>
@@ -48,8 +51,12 @@
             </tr>
             @endforelse
         </tbody>
-
     </table>
+
+    <div class="mt-4">
+        {{ $departments->links() }}
+    </div>
+
 
     <livewire:department.permanent-delete-modal />
 

@@ -1,8 +1,10 @@
-<div>
-    @if ($openRestoreModal)
-    <div x-data @keyup.escape.window="$wire.set('openRestoreModal', false)"
-        class="fixed inset-0 flex items-center justify-center bg-black/30 z-50">
-        <div @click.outside="$wire.set('openRestoreModal', false)" class="bg-white p-6 rounded shadow-lg w-96">
+<div x-data="{ open: @entangle('openRestoreModal') }" x-cloak @keyup.escape.window="open = false">
+
+    <div x-show="open" x-transition.opacity class="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+
+        <div @click.outside="$wire.set('openRestoreModal', false)" x-show="open"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-50"
+            x-transition:enter-end="opacity-100 scale-100" class="bg-white p-6 rounded-lg w-full max-w-md">
             <h2 class="text-lg font-bold mb-3">Confirm Restore</h2>
             <p>Are you sure you want to restore <b>{{$name}}</b> department?</p>
 
@@ -15,5 +17,4 @@
             </div>
         </div>
     </div>
-    @endif
 </div>

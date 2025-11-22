@@ -1,9 +1,10 @@
-<div>
-    @if ($openEditModal)
-    <div x-data @keyup.escape.window="$wire.set('openEditModal', false)"
-        class="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+<div x-data="{ open: @entangle('openEditModal') }" @keyup.escape.window="open = false">
 
-        <div @click.outside="$wire.set('openEditModal', false)" class="bg-white p-6 rounded-lg w-full max-w-lg">
+    <div x-show="open" x-transition.opacity class="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+
+        <div @click.outside="$wire.set('openEditModal', false)" x-show="open"
+            x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 scale-50"
+            x-transition:enter-end="opacity-100 scale-100" class="bg-white p-6 rounded-lg w-full max-w-md">
 
             <h2 class="text-xl font-bold mb-4">Edit Department</h2>
 
@@ -33,5 +34,4 @@
 
         </div>
     </div>
-    @endif
 </div>

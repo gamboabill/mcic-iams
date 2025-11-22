@@ -3,11 +3,11 @@
 namespace App\Livewire\Department;
 
 use App\Models\Department;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class CreateModal extends Component
 {
-    protected $listeners = ['open-create-modal' => 'openCreateModal'];
 
     public $openCreateModal = false;
 
@@ -15,6 +15,8 @@ class CreateModal extends Component
     public $code;
     public $description;
 
+    // Opens the create modal (triggered by Index parent component)
+    #[On('open-create-modal')]
     public function openCreateModal()
     {
         $this->openCreateModal = true;
@@ -30,13 +32,12 @@ class CreateModal extends Component
 
         Department::create($data);
 
-        session()->flash('success', 'Department created successfully!');
-
-        $this->dispatch('created-success');
+        // Notify parent component (Index.php)
+        $this->dispatch('create-success');
 
         $this->reset();
 
-        $this->openCreateModal  = false;
+        $this->openCreateModal = false;
     }
 
     public function render()
